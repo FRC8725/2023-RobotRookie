@@ -9,9 +9,9 @@ import frc.robot.subsystems.KOPSubsystem;
 
 import java.util.List;
 
-public class AutoCommand extends SequentialCommandGroup {
-    public AutoCommand(KOPSubsystem subsystem) {
-        List<PathPlannerTrajectory> pathGroup = PathPlanner.loadPathGroup("New Path", new PathConstraints(Constants.AutoConstants.kMaxSpeedMetersPerSecond, Constants.AutoConstants.kMaxAccelerationMetersPerSecondSquared));
+public class AutoCommands extends SequentialCommandGroup {
+    public AutoCommands(KOPSubsystem subsystem) {
+        List<PathPlannerTrajectory> pathGroup = PathPlanner.loadPathGroup("Test", new PathConstraints(Constants.AutoConstants.kMaxSpeedMetersPerSecond, Constants.AutoConstants.kMaxAccelerationMetersPerSecondSquared));
         PathPlannerTrajectory firstTrajectory = pathGroup.get(0);
         this.addRequirements(subsystem);
         this.addCommands(subsystem.followTrajectoryCommand(firstTrajectory, true));

@@ -1,8 +1,8 @@
 package frc.robot;
 
 public final class RobotMap {
-    public static final int kRightMotorPort1 = 1;
-    public static final int kRightMotorPort2 = 2;
-    public static final int kLeftMotorPort1 = 3;
-    public static final int kLeftMotorPort2 = 4;
+    public static final int RIGHT_MOTOR_1_PORT = 1;
+    public static final int RIGHT_MOTOR_2_PORT = 2;
+    public static final int LEFT_MOTOR_1_PORT = 3;
+    public static final int LEFT_MOTOR_2_PORT = 4;
 }

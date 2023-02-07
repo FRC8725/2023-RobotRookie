@@ -36,16 +36,16 @@ public class KOPSubsystem extends SubsystemBase {
   private final Field2d field = new Field2d();
 
   public KOPSubsystem() {
-    this.rightMotor1 = new DriveMotorModule(RobotMap.kRightMotorPort1, false);
-    this.rightMotor2 = new DriveMotorModule(RobotMap.kRightMotorPort2, false);
-    this.leftMotor1 = new DriveMotorModule(RobotMap.kLeftMotorPort1, true);
-    this.leftMotor2 = new DriveMotorModule(RobotMap.kLeftMotorPort2, true);
+    this.rightMotor1 = new DriveMotorModule(RobotMap.RIGHT_MOTOR_1_PORT, false);
+    this.rightMotor2 = new DriveMotorModule(RobotMap.RIGHT_MOTOR_2_PORT, false);
+    this.leftMotor1 = new DriveMotorModule(RobotMap.LEFT_MOTOR_1_PORT, true);
+    this.leftMotor2 = new DriveMotorModule(RobotMap.LEFT_MOTOR_2_PORT, true);
     this.gyro = new ADXRS450_Gyro(SPI.Port.kOnboardCS0);
     this.kinematics = new DifferentialDriveKinematics(0.55);
     this.estimator = new DifferentialDrivePoseEstimator(this.kinematics, new Rotation2d(Units.degreesToRadians(gyro.getAngle())), 0, 0, new Pose2d(0, 0, new Rotation2d(0)));
   }
 
-  public void move(Double rightSpeed, Double leftSpeed) {
+  public void move(double rightSpeed, double leftSpeed) {
     this.rightMotor1.setDesiredState(rightSpeed);
     this.rightMotor2.setDesiredState(rightSpeed);
     this.leftMotor1.setDesiredState(leftSpeed);
@@ -90,7 +90,7 @@ public class KOPSubsystem extends SubsystemBase {
   }
 
   private DifferentialDriveWheelSpeeds getWheelSpeeds() {
-    return new DifferentialDriveWheelSpeeds(this.leftMotor1.getEncoder().getVelocity(), this.rightMotor1.getEncoder().getVelocity());
+    return new DifferentialDriveWheelSpeeds(this.leftMotor1.getEncoderVel(), this.rightMotor1.getEncoderVel());
   }
 
   private void resetOdometry(Pose2d pose2d) {
@@ -99,7 +99,7 @@ public class KOPSubsystem extends SubsystemBase {
 
   @Override
   public void periodic() {
-    this.estimator.update(new Rotation2d(this.gyro.getAngle()), this.leftMotor1.getEncoder().getPosition(), this.rightMotor1.getEncoder().getPosition());
+    this.estimator.update(new Rotation2d(this.gyro.getAngle()), this.leftMotor1.getEncoderPos(), this.rightMotor1.getEncoderPos());
     this.field.setRobotPose(this.estimator.getEstimatedPosition());
     SmartDashboard.putData(this.field);
   }

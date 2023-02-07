@@ -1,6 +1,5 @@
 package frc.robot.subsystems;
 
-import com.revrobotics.RelativeEncoder;
 import frc.robot.Constants;
 
 import com.revrobotics.CANSparkMax;
@@ -9,25 +8,30 @@ import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class DriveMotorModule {
-    private CANSparkMax NEOMotor;
+    private final CANSparkMax NEOMotor;
 
-    public DriveMotorModule(int Motor_Port, boolean Direction) {
-        NEOMotor = new CANSparkMax(Motor_Port, MotorType.kBrushless);
-        NEOMotor.setInverted(Direction);
-        NEOMotor.setIdleMode(IdleMode.kCoast);
-        NEOMotor.setSmartCurrentLimit(30);
+    public DriveMotorModule(int port, boolean inverted) {
+        this.NEOMotor = new CANSparkMax(port, MotorType.kBrushless);
+        this.NEOMotor.setInverted(inverted);
+        this.NEOMotor.setIdleMode(IdleMode.kCoast);
+        this.NEOMotor.setSmartCurrentLimit(30);
     }
 
-    public void setDesiredState(Double speed) {
-        NEOMotor.set(speed * Constants.DriverConstants.kSpeed);
-        SmartDashboard.putNumber("speed", speed * Constants.DriverConstants.kSpeed);
+    public void setDesiredState(double speed) {
+        double realSpeed = speed * Constants.DriverConstants.kSpeed;
+        this.NEOMotor.set(realSpeed);
+        SmartDashboard.putNumber("speed", realSpeed);
     }
 
     public void stop() {
-        NEOMotor.set(0);
+        this.NEOMotor.set(0);
     }
 
-    public RelativeEncoder getEncoder() {
-        return this.NEOMotor.getEncoder();
+    public double getEncoderPos() {
+        return this.NEOMotor.getEncoder().getPosition();
+    }
+
+    public double getEncoderVel() {
+        return this.NEOMotor.getEncoder().getVelocity();
     }
 }
