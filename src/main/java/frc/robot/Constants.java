@@ -1,9 +1,5 @@
-// Copyright (c) FIRST and other WPILib contributors.
-// Open Source Software; you can modify and/or share it under the terms of
-// the WPILib BSD license file in the root directory of this project.
 package frc.robot;
-import edu.wpi.first.math.geometry.Translation2d;
-import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
+
 import edu.wpi.first.math.util.Units;
 
 /**
@@ -15,19 +11,25 @@ import edu.wpi.first.math.util.Units;
  * constants are needed, to reduce verbosity.
  */
 public final class Constants {
-  public static final class OperatorConstants {
-    public static final int kDriverControllerPort = 0;
-  }
+    public static final class Operation {
+        public static final int kDriverControllerPort = 0;
+    }
 
-  public static final class DriverConstants {
-    public static final double kSpeed = 0.3;
-  }
+    public static final class Drive {
+        public static final double kSpeed = 0.3;
+    }
 
-  public static final class AutoConstants {
-    public static final double kMaxSpeedMetersPerSecond = Units.feetToMeters(13.5) / 2;
-    public static final double kMaxAccelerationMetersPerSecondSquared = 3;
-    public static final double kPXController = 1.;
-    public static final double kPYController = 1.;
-    public static final double kPThetaController = 1.5;
-  }
+    public static final class Motor {
+        public static final int SMART_CURRENT_LIMIT = 30;
+        public static final double POS_FACTOR = 1.0 / 13.5;
+        public static final double VEL_FACTOR = POS_FACTOR / 60.0;
+    }
+
+    public static final class Auto {
+        public static final double kMaxSpeedMetersPerSecond = Units.feetToMeters(13.5) / 2;
+        public static final double kMaxAccelerationMetersPerSecondSquared = 3;
+        public static final double kPXController = 1.;
+        public static final double kPYController = 1.;
+        public static final double kPThetaController = 1.5;
+    }
 }

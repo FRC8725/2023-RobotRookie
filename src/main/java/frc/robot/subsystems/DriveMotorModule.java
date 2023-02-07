@@ -12,15 +12,19 @@ public class DriveMotorModule {
 
     public DriveMotorModule(int port, boolean inverted) {
         this.NEOMotor = new CANSparkMax(port, MotorType.kBrushless);
+        this.setupMotor(inverted);
+    }
+
+    private void setupMotor(boolean inverted) {
         this.NEOMotor.setInverted(inverted);
         this.NEOMotor.setIdleMode(IdleMode.kCoast);
-        this.NEOMotor.setSmartCurrentLimit(30);
-        this.NEOMotor.getEncoder().setPositionConversionFactor(1.0 / 13.5);
-        this.NEOMotor.getEncoder().setVelocityConversionFactor(1.0 / 13.5 / 60.0);
+        this.NEOMotor.setSmartCurrentLimit(Constants.Motor.SMART_CURRENT_LIMIT);
+        this.NEOMotor.getEncoder().setPositionConversionFactor(Constants.Motor.POS_FACTOR);
+        this.NEOMotor.getEncoder().setVelocityConversionFactor(Constants.Motor.VEL_FACTOR);
     }
 
     public void setDesiredState(double speed) {
-        double realSpeed = speed * Constants.DriverConstants.kSpeed;
+        double realSpeed = speed * Constants.Drive.kSpeed;
         this.NEOMotor.set(realSpeed);
         SmartDashboard.putNumber("speed", realSpeed);
     }
