@@ -63,7 +63,7 @@ public class KOPSubsystem extends SubsystemBase {
   }
 
   public DifferentialDriveWheelSpeeds getWheelSpeeds() {
-    return new DifferentialDriveWheelSpeeds(this.leftMotor1.getEncoderVel(), this.rightMotor1.getEncoderVel());
+    return new DifferentialDriveWheelSpeeds(this.leftMotor1.getEncoderVel() * Units.inchesToMeters(6) * 2 * Math.PI, this.rightMotor1.getEncoderVel() * Units.inchesToMeters(6) * 2 * Math.PI);
   }
 
   public void resetOdometry(Pose2d pose2d) {
