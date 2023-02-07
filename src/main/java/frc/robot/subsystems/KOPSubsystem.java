@@ -1,14 +1,5 @@
-// Copyright (c) FIRST and other WPILib contributors.
-// Open Source Software; you can modify and/or share it under the terms of
-// the WPILib BSD license file in the root directory of this project.
-
 package frc.robot.subsystems;
 
-import com.pathplanner.lib.PathPlannerTrajectory;
-import com.pathplanner.lib.commands.PPRamseteCommand;
-import edu.wpi.first.math.controller.PIDController;
-import edu.wpi.first.math.controller.RamseteController;
-import edu.wpi.first.math.controller.SimpleMotorFeedforward;
 import edu.wpi.first.math.estimator.DifferentialDrivePoseEstimator;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
@@ -19,9 +10,6 @@ import edu.wpi.first.wpilibj.ADXRS450_Gyro;
 import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.smartdashboard.Field2d;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.InstantCommand;
-import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.RobotMap;
 
@@ -59,46 +47,26 @@ public class KOPSubsystem extends SubsystemBase {
     this.leftMotor2.stop();
   }
 
-  public Command followTrajectoryCommand(PathPlannerTrajectory trajectory, boolean isFirstPath) {
-    return new SequentialCommandGroup(
-            new InstantCommand(() -> {
-              if (isFirstPath){
-                this.resetOdometry(trajectory.getInitialPose());
-              }
-            }),
-
-            new PPRamseteCommand(
-                    trajectory,
-                    this::getPose, // Pose supplier
-                    new RamseteController(),
-                    new SimpleMotorFeedforward(0.5, 0.5, 0.5),
-                    this.kinematics, // DifferentialDriveKinematics
-                    this::getWheelSpeeds, // DifferentialDriveWheelSpeeds supplier
-                    new PIDController(0.5, 0, 0), // Left controller. Tune these values for your robot. Leaving them 0 will only use feedforwards.
-                    new PIDController(0.5, 0, 0), // Right controller (usually the same values as left controller)
-                    this::outputVolts, // Voltage biConsumer
-                    true, // Should the path be automatically mirrored depending on alliance color. Optional, defaults to true
-                    this // Requires this drive subsystem
-            )
-    );
-  }
-
-  private void outputVolts(Double d1, Double d2) {
+  public void outputVolts(Double d1, Double d2) {
     this.leftMotor1.setVoltage(d1);
     this.leftMotor2.setVoltage(d1);
     this.rightMotor1.setVoltage(d2);
     this.rightMotor2.setVoltage(d2);
   }
 
-  private Pose2d getPose() {
+  public Pose2d getPose() {
     return this.estimator.getEstimatedPosition();
   }
 
-  private DifferentialDriveWheelSpeeds getWheelSpeeds() {
+  public DifferentialDriveKinematics getKinematics() {
+    return this.kinematics;
+  }
+
+  public DifferentialDriveWheelSpeeds getWheelSpeeds() {
     return new DifferentialDriveWheelSpeeds(this.leftMotor1.getEncoderVel(), this.rightMotor1.getEncoderVel());
   }
 
-  private void resetOdometry(Pose2d pose2d) {
+  public void resetOdometry(Pose2d pose2d) {
     this.estimator.resetPosition(this.gyro.getRotation2d(), 0, 0, pose2d);
   }
 
