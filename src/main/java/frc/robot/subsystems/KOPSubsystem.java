@@ -83,7 +83,12 @@ public class KOPSubsystem extends SubsystemBase {
     );
   }
 
-  private void outputVolts(Double d1, Double d2) {}
+  private void outputVolts(Double d1, Double d2) {
+    this.leftMotor1.setVoltage(d1);
+    this.leftMotor2.setVoltage(d1);
+    this.rightMotor1.setVoltage(d2);
+    this.rightMotor2.setVoltage(d2);
+  }
 
   private Pose2d getPose() {
     return this.estimator.getEstimatedPosition();

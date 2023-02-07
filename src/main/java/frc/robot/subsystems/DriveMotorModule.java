@@ -34,4 +34,8 @@ public class DriveMotorModule {
     public double getEncoderVel() {
         return this.NEOMotor.getEncoder().getVelocity();
     }
+
+    public void setVoltage(double voltage) {
+        this.NEOMotor.setVoltage(voltage);
+    }
 }
