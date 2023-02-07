@@ -5,6 +5,7 @@
 package frc.robot;
 
 import frc.robot.Constants.OperatorConstants;
+import frc.robot.commands.AutoCommand;
 import frc.robot.commands.ExampleCommand;
 import frc.robot.commands.TestCommand;
 import frc.robot.subsystems.ExampleSubsystem;
@@ -12,7 +13,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.commands.DriveJoystickCmd;
-import frc.robot.subsystems.DirveMotorSubsystem;
+import frc.robot.subsystems.KOPSubsystem;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -23,7 +24,7 @@ import frc.robot.subsystems.DirveMotorSubsystem;
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
-  private final DirveMotorSubsystem driverSubsystem = new DirveMotorSubsystem();
+  private final KOPSubsystem driverSubsystem = new KOPSubsystem();
   private final GamepadJoystick driverJoystick = new GamepadJoystick(GamepadJoystick.kDriverControllerPort);
   // Replace with CommandPS4Controller or CommandJoystick if needed
   private final CommandXboxController m_driverController =
@@ -67,6 +68,6 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
     // An example command will be run in autonomous
-    return new TestCommand();
+    return new AutoCommand(this.driverSubsystem);
   }
 }

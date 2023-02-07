@@ -6,15 +6,13 @@ package frc.robot.commands;
 
 import java.util.function.Supplier;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import edu.wpi.first.wpilibj2.command.Subsystem;
-import frc.robot.Constants;
-import frc.robot.subsystems.DirveMotorSubsystem;
+import frc.robot.subsystems.KOPSubsystem;
 
 public class DriveJoystickCmd extends CommandBase {
-  private final DirveMotorSubsystem MotorSubsystem;
+  private final KOPSubsystem MotorSubsystem;
   private final Supplier<Double> SpeedFunction, TurnFunction;
   /** Creates a new DriverJoystickCmd. */
-  public DriveJoystickCmd(DirveMotorSubsystem subsystem, Supplier<Double> SpeedFunction, Supplier<Double> TurnFunction) {
+  public DriveJoystickCmd(KOPSubsystem subsystem, Supplier<Double> SpeedFunction, Supplier<Double> TurnFunction) {
     MotorSubsystem = subsystem;
     this.SpeedFunction = SpeedFunction;
     this.TurnFunction = TurnFunction;

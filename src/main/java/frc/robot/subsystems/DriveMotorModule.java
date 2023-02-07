@@ -1,5 +1,6 @@
 package frc.robot.subsystems;
 
+import com.revrobotics.RelativeEncoder;
 import frc.robot.Constants;
 
 import com.revrobotics.CANSparkMax;
@@ -24,5 +25,9 @@ public class DriveMotorModule {
 
     public void stop() {
         NEOMotor.set(0);
+    }
+
+    public RelativeEncoder getEncoder() {
+        return this.NEOMotor.getEncoder();
     }
 }
