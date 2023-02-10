@@ -16,7 +16,7 @@ public class DriveMotorModule {
         this.NEOMotor.setIdleMode(IdleMode.kCoast);
         this.NEOMotor.setSmartCurrentLimit(30);
         this.NEOMotor.getEncoder().setPositionConversionFactor(1.0 / 13.5);
-        this.NEOMotor.getEncoder().setVelocityConversionFactor(1.0 / 13.5 / 20.0);
+        this.NEOMotor.getEncoder().setVelocityConversionFactor(1.0 / 13.5 / 50);
     }
 
     public void setDesiredState(double speed) {

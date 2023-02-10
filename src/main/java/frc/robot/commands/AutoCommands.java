@@ -27,8 +27,8 @@ public class AutoCommands extends SequentialCommandGroup {
           new SimpleMotorFeedforward(0, 0, 0),
           subsystem.getKinematics(),
           subsystem::getWheelSpeeds,
-          new PIDController(0.33, 0.5, 0),
-          new PIDController(0.33, 0.5, 0),
+          new PIDController(0.25, 0, 0),
+          new PIDController(0.25, 0, 0),
           subsystem::outputVolts, true, subsystem);
           
         this.addCommands(command, command1);
