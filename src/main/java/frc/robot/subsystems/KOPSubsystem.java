@@ -74,9 +74,12 @@ public class KOPSubsystem extends SubsystemBase {
 
   @Override
   public void periodic() {
-    this.estimator.update(new Rotation2d(this.gyro.getAngle()), this.leftMotor2.getEncoderPos(), this.rightMotor2.getEncoderPos());
+    this.estimator.update(new Rotation2d(Units.degreesToRadians(this.gyro.getAngle()) * -1), this.leftMotor1.getEncoderPos(), this.rightMotor1.getEncoderPos());
     this.field.setRobotPose(this.estimator.getEstimatedPosition());
     SmartDashboard.putData(this.field);
-    SmartDashboard.putNumber("Angle", this.gyro.getAngle());
+    SmartDashboard.putNumber("Angle", Units.degreesToRadians(this.gyro.getAngle()) * -1);
+    SmartDashboard.putNumber("LeftEncoder", this.leftMotor1.getEncoderPos());
+    SmartDashboard.putNumber("RightEncoder", this.rightMotor1.getEncoderPos());
   }
 }
+

@@ -69,6 +69,6 @@ public class RobotContainer {
     // An example command will be run in autonomous
 
 
-    return new AutoCommands(this.driverSubsystem);
+    return new AutoCommands(driverSubsystem);
   }
 }
