@@ -21,12 +21,9 @@ public class GripperSubsystem extends SubsystemBase {
 
   public void grip(Double speed) {
     Gripmotor.set(speed);
-    SmartDashboard.putNumber("GripperSpeed", speed);
+    SmartDashboard.putNumber("Gripper", Gripmotor.getEncoder().getPosition());
   }
 
-  public void gripperArm(Double speed) {
-
-  }
 
   public void stopModules() {
     Gripmotor.set(0);

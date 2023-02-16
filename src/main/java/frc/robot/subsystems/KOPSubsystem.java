@@ -33,7 +33,6 @@ public class KOPSubsystem extends SubsystemBase {
     this.kinematics = new DifferentialDriveKinematics(0.55);
     this.estimator = new DifferentialDrivePoseEstimator(this.kinematics, new Rotation2d(Units.degreesToRadians(gyro.getAngle())), 0, 0, new Pose2d(0, 0, new Rotation2d(0)));
   }
-                                    
   
   public void move(double rightSpeed, double leftSpeed) {
     this.rightMotor1.setDesiredState(rightSpeed);
