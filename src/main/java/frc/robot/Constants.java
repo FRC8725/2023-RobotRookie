@@ -21,6 +21,10 @@ public final class Constants {
     public static final double kSpeed = 0.2;
   }
 
+  public static final class GripperConstants {
+    public static final double kGripperSpeed = 0.1;
+  }
+
   public static final class AutoConstants {
     public static final double kMaxSpeedMetersPerSecond = Units.feetToMeters(13.5) / 2;
     public static final double kMaxAccelerationMetersPerSecondSquared = 3;

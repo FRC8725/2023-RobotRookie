@@ -69,7 +69,7 @@ public class KOPSubsystem extends SubsystemBase {
   }
 
   public void resetOdometry(Pose2d pose2d) {
-    this.estimator.resetPosition(this.gyro.getRotation2d(), 0, 0, pose2d);
+    this.estimator.resetPosition(new Rotation2d(.0), 0, 0, pose2d);
   }
 
   @Override
