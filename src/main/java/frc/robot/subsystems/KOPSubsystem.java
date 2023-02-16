@@ -29,11 +29,17 @@ public class KOPSubsystem extends SubsystemBase {
     this.leftMotor1 = new DriveMotorModule(RobotMap.LEFT_MOTOR_1_PORT, true);
     this.leftMotor2 = new DriveMotorModule(RobotMap.LEFT_MOTOR_2_PORT, true);
     this.gyro = new ADXRS450_Gyro(SPI.Port.kOnboardCS0);
-    this.gyro.calibrate();
     this.kinematics = new DifferentialDriveKinematics(0.55);
-    this.estimator = new DifferentialDrivePoseEstimator(this.kinematics, new Rotation2d(Units.degreesToRadians(gyro.getAngle())), 0, 0, new Pose2d(0, 0, new Rotation2d(0)));
+    this.estimator = new DifferentialDrivePoseEstimator(this.kinematics, getRotation2d(), 0, 0, new Pose2d(0, 0, new Rotation2d(0)));
   }
-  
+
+  public double getHeadingDeg() {
+    return Math.IEEEremainder(-gyro.getAngle(), 360);
+  }
+
+  public Rotation2d getRotation2d() {
+    return Rotation2d.fromDegrees(getHeadingDeg());
+  }
   public void move(double rightSpeed, double leftSpeed) {
     this.rightMotor1.setDesiredState(rightSpeed);
     this.rightMotor2.setDesiredState(rightSpeed);
@@ -73,10 +79,10 @@ public class KOPSubsystem extends SubsystemBase {
 
   @Override
   public void periodic() {
-    this.estimator.update(new Rotation2d(Units.degreesToRadians(this.gyro.getAngle()) * -1), this.leftMotor1.getEncoderPos(), this.rightMotor1.getEncoderPos());
+    this.estimator.update(getRotation2d(), this.leftMotor1.getEncoderPos(), this.rightMotor1.getEncoderPos());
     this.field.setRobotPose(this.estimator.getEstimatedPosition());
     SmartDashboard.putData(this.field);
-    SmartDashboard.putNumber("Angle", Units.degreesToRadians(this.gyro.getAngle()) * -1);
+    SmartDashboard.putNumber("Angle", Units.degreesToRadians(getHeadingDeg()));
     SmartDashboard.putNumber("LeftEncoder", this.leftMotor1.getEncoderPos());
     SmartDashboard.putNumber("RightEncoder", this.rightMotor1.getEncoderPos());
   }
