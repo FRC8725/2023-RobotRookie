@@ -8,11 +8,11 @@ import java.util.function.Supplier;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.KOPSubsystem;
 
-public class DriveJoystickCommand extends CommandBase {
+public class DriveJoystickCmd extends CommandBase {
     private final KOPSubsystem subsystem;
     private final Supplier<Double> speedFunction, turnFunction;
     /** Creates a new DriverJoystickCmd. */
-    public DriveJoystickCommand(KOPSubsystem subsystem, Supplier<Double> speedFunction, Supplier<Double> turnFunction) {
+    public DriveJoystickCmd(KOPSubsystem subsystem, Supplier<Double> speedFunction, Supplier<Double> turnFunction) {
         this.subsystem = subsystem;
         this.speedFunction = speedFunction;
         this.turnFunction = turnFunction;

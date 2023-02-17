@@ -20,7 +20,7 @@ public class AutoCommands extends SequentialCommandGroup {
     public AutoCommands(KOPSubsystem subsystem) {
         this.subsystem = subsystem;
         boolean isFirstPath = true;
-        List<PathPlannerTrajectory> pathGroup = PathPlanner.loadPathGroup("Test", new PathConstraints(Constants.Auto.kMaxSpeedMetersPerSecond, Constants.Auto.kMaxAccelerationMetersPerSecondSquared));
+        List<PathPlannerTrajectory> pathGroup = PathPlanner.loadPathGroup("Test", new PathConstraints(Constants.AutoConstants.kMaxSpeedMetersPerSecond, Constants.AutoConstants.kMaxAccelerationMetersPerSecondSquared));
         PathPlannerTrajectory firstTrajectory = pathGroup.get(0);
         InstantCommand command = this.getResetCommand(isFirstPath, firstTrajectory);
         PPRamseteCommand command1 = new PPRamseteCommand(firstTrajectory, subsystem::getPose, new RamseteController(), 

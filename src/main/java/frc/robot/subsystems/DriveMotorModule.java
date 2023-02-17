@@ -22,7 +22,8 @@ public class DriveMotorModule {
     public void setDesiredState(double speed) {
         double realSpeed = speed * Constants.DriverConstants.kSpeed;
         this.NEOMotor.set(realSpeed);
-        SmartDashboard.putNumber("speed", realSpeed);
+        SmartDashboard.putNumber(this.NEOMotor.getDeviceId() + "speed", realSpeed);
+        SmartDashboard.putBoolean(this.NEOMotor.getDeviceId() + "inverted", NEOMotor.getInverted());
     }
 
     public void stop() {
