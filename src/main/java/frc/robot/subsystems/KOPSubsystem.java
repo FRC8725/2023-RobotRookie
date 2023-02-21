@@ -41,6 +41,7 @@ public class KOPSubsystem extends SubsystemBase {
   public Rotation2d getRotation2d() {
     return Rotation2d.fromDegrees(getHeadingDeg());
   }
+
   public void move(double rightSpeed, double leftSpeed) {
     this.rightMotor1.setDesiredState(rightSpeed);
     this.rightMotor2.setDesiredState(rightSpeed);
@@ -83,7 +84,7 @@ public class KOPSubsystem extends SubsystemBase {
     this.estimator.update(getRotation2d(), this.leftMotor1.getEncoderPos(), this.rightMotor1.getEncoderPos());
     this.field.setRobotPose(this.estimator.getEstimatedPosition());
     SmartDashboard.putData(this.field);
-    SmartDashboard.putNumber("Angle", Units.degreesToRadians(getHeadingDeg()));
+    SmartDashboard.putNumber("Angle", getHeadingDeg());
     SmartDashboard.putNumber("LeftEncoder", this.leftMotor1.getEncoderPos());
     SmartDashboard.putNumber("RightEncoder", this.rightMotor1.getEncoderPos());
   }
